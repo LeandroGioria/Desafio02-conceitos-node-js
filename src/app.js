@@ -46,7 +46,6 @@ app.put("/repositories/:id", (request, response) => {
   repository.techs = techs;
 
   return response.json(repositories);
-
 });
 
 app.delete("/repositories/:id", (request, response) => {
@@ -63,7 +62,17 @@ app.delete("/repositories/:id", (request, response) => {
 });
 
 app.post("/repositories/:id/like", (request, response) => {
-  // TODO
+  const { id } = request.params;
+
+  const repository = repositories.find(r => r.id === id);
+
+  if(!repository) {
+    return response.status(400).json({Error: 'Repository not found'});
+  }
+
+  repository.likes += 1;
+
+  return response.json(repository);
 });
 
 module.exports = app;
