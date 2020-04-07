@@ -45,7 +45,7 @@ app.put("/repositories/:id", (request, response) => {
   repository.url = url;
   repository.techs = techs;
 
-  return response.json(repositories);
+  return response.json(repository);
 });
 
 app.delete("/repositories/:id", (request, response) => {
@@ -56,9 +56,11 @@ app.delete("/repositories/:id", (request, response) => {
     return response.status(400).json({Error: 'Repository not found'});
   }
 
+  console.log(repositories);
+  console.log(respositoryIndex);
   repositories.splice(respositoryIndex, 1);
 
-  return response.status(200).json({ status: "Success"});
+  return response.status(204).json({});
 });
 
 app.post("/repositories/:id/like", (request, response) => {
